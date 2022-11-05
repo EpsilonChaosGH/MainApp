@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="customColor">#BC05CA</color>
+    <color name="customColorSecondary">#9B04A6</color>
+
+    <color name="defaultDashboardColor">#008800</color>
+
 </resources>
