@@ -10,20 +10,28 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.mainapp.R
+import com.example.mainapp.Repositories
 import com.example.mainapp.databinding.ActivityMainBinding
 import com.example.mainapp.screens.main.tabs.TabsFragment
+import com.example.mainapp.utils.viewModelCreator
 import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
 
 
-
     private var navController: NavController? = null
+
+    private val viewModel by viewModelCreator { MainActivityViewModel(Repositories.accountsRepository) }
 
     private val topLevelDestinations = setOf(getTabsDestination(), getSignInDestination())
 
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
-        override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
+        override fun onFragmentViewCreated(
+            fm: FragmentManager,
+            f: Fragment,
+            v: View,
+            savedInstanceState: Bundle?
+        ) {
             super.onFragmentViewCreated(fm, f, v, savedInstanceState)
             if (f is TabsFragment || f is NavHostFragment) return
             onNavControllerActivated(f.findNavController())
@@ -31,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Repositories.init(applicationContext)
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
         setSupportActionBar(binding.toolbar)
@@ -41,7 +50,9 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
 
-            binding.usernameTextView.text = "username"
+        viewModel.username.observe(this) {
+            binding.usernameTextView.text = it
+        }
 
     }
 
@@ -59,7 +70,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean = (navController?.navigateUp() ?: false) || super.onSupportNavigateUp()
+    override fun onSupportNavigateUp(): Boolean =
+        (navController?.navigateUp() ?: false) || super.onSupportNavigateUp()
 
     private fun prepareRootNavController(isSignedIn: Boolean, navController: NavController) {
         val graph = navController.navInflater.inflate(getMainNavigationGraphId())
@@ -81,14 +93,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getRootNavController(): NavController {
-        val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         return navHost.navController
     }
 
-    private val destinationListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
-        supportActionBar?.title = prepareTitle(destination.label, arguments)
-        supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
-    }
+    private val destinationListener =
+        NavController.OnDestinationChangedListener { _, destination, arguments ->
+            supportActionBar?.title = prepareTitle(destination.label, arguments)
+            supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
+        }
 
     private fun isStartDestination(destination: NavDestination?): Boolean {
         if (destination == null) return false
