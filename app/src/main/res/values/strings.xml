@@ -17,11 +17,9 @@
     <string name="field_is_empty">Field is empty</string>
     <string name="password_mismatch">Password mismatch</string>
     <string name="account_already_exists">Account already exists</string>
-    <string name="sign_up_success">Wow, you have created a new account. Now you can login with it.</string>
+    <string name="sign_up_success">New account created</string>
     <string name="edit_profile_description">Right now you can edit only username</string>
     <string name="invalid_email_or_password">Invalid email or password</string>
-    <string name="enable_checkbox">Enable %1$s box</string>
-    <string name="settings_description">Enable or disable any box you want</string>
     <string name="placeholder">-</string>
 
 

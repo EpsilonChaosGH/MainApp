@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/activity_splash.xml" value="0.4" />
+        <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_edit_profile.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_settings.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_sign_in.xml" value="0.4" />
+        <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.4" />
+        <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_splash.xml" value="0.4" />
+        <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_tabs.xml" value="0.4" />
       </map>
     </option>
   </component>
