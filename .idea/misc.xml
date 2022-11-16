@@ -3,16 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.304" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/activity_splash.xml" value="0.4" />
+        <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_create_element.xml" value="0.39895833333333336" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.4" />
+        <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_edit_element.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_edit_profile.xml" value="0.4" />
+        <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_elements.xml" value="0.39895833333333336" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_settings.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_sign_in.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_splash.xml" value="0.4" />
         <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/fragment_tabs.xml" value="0.4" />
+        <entry key="..\:/Users/darkn/AndroidStudioProjects/MainApp/app/src/main/res/layout/item_element.xml" value="0.4" />
       </map>
     </option>
   </component>

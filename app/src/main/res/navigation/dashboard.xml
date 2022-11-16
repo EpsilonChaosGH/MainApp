@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard"
     app:startDestination="@id/dashboardFragment">
 
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.mainapp.screens.main.tabs.dashboard.DashboardFragment"
-        android:label="@string/dashboard" />
+        android:label="@string/dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_editElementFragment"
+            app:destination="@id/editElementFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editElementFragment"
+        android:name="com.example.mainapp.screens.main.tabs.dashboard.EditElementFragment"
+        android:label="Edit element"
+        tools:layout="@layout/fragment_edit_element">
+        <argument
+            android:name="elementId"
+            app:argType="long" />
+        <argument
+            android:name="elementText"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

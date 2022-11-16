@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.mainapp.model.accounts.AccountsRepository
 import com.example.mainapp.model.accounts.room.AccountsRepositoryImpl
+import com.example.mainapp.model.elements.ElementsRepository
+import com.example.mainapp.model.elements.room.RoomElementRepository
 import com.example.mainapp.model.room.AppDatabase
 import com.example.mainapp.model.settings.AppSettings
 import com.example.mainapp.model.settings.SharedPreferencesAppSettings
@@ -29,6 +31,10 @@ object Repositories {
 
     val accountsRepository: AccountsRepository by lazy {
         AccountsRepositoryImpl(database.getAccountsDao(), appSettings, ioDispatcher)
+    }
+
+    val elementsRepository: ElementsRepository by lazy {
+        RoomElementRepository(database.getElementDao(), appSettings , ioDispatcher)
     }
 
     fun init(context: Context) {
