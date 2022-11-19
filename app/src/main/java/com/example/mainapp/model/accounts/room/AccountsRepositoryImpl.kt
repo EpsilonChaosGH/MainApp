@@ -1,6 +1,7 @@
 package com.example.mainapp.model.accounts.room
 
 import android.database.sqlite.SQLiteConstraintException
+import android.util.Log
 import com.example.mainapp.model.AccountAlreadyExistsException
 import com.example.mainapp.model.AuthException
 import com.example.mainapp.model.EmptyFieldException
@@ -13,6 +14,7 @@ import com.example.mainapp.model.accounts.entities.Account
 import com.example.mainapp.model.accounts.room.entities.AccountDbEntity
 import com.example.mainapp.model.accounts.room.entities.AccountUpdateUsernameTuple
 import com.example.mainapp.model.room.wrapSQLiteException
+import com.example.mainapp.utils.security.SecurityUtils
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -21,7 +23,8 @@ import kotlin.random.Random
 class AccountsRepositoryImpl(
     private val accountsDao: AccountsDao,
     private val appSettings: AppSettings,
-    private val ioDispatcher: CoroutineDispatcher
+    private val ioDispatcher: CoroutineDispatcher,
+    private val securityUtils: SecurityUtils
 ) : AccountsRepository {
 
     private val currentAccountIdFlow = AsyncLoader {
@@ -32,10 +35,10 @@ class AccountsRepositoryImpl(
         return appSettings.getCurrentAccountId() != AppSettings.NO_ACCOUNT_ID
     }
 
-    override suspend fun signIn(email: String, password: String) =
+    override suspend fun signIn(email: String, password: CharArray) =
         wrapSQLiteException(ioDispatcher) {
             if (email.isBlank()) throw EmptyFieldException(Field.Email)
-            if (password.isBlank()) throw EmptyFieldException(Field.Password)
+            if (password.isEmpty()) throw EmptyFieldException(Field.Password)
 
             val accountId = findAccountIdByEmailAndPassword(email = email, password = password)
             appSettings.setCurrentAccountId(accountId)
@@ -81,7 +84,7 @@ class AccountsRepositoryImpl(
 
     private suspend fun createAccount(signUpData: SignUpData) {
         try {
-            val entity = AccountDbEntity.fromSignUpData(signUpData)
+            val entity = AccountDbEntity.fromSignUpData(signUpData, securityUtils)
             accountsDao.createAccount(entity)
         } catch (e: SQLiteConstraintException) {
             val appException = AccountAlreadyExistsException()
@@ -98,9 +101,26 @@ class AccountsRepositoryImpl(
         accountsDao.updateUsername(AccountUpdateUsernameTuple(accountId, newUsername))
     }
 
-    private suspend fun findAccountIdByEmailAndPassword(email: String, password: String): Long {
+    private suspend fun findAccountIdByEmailAndPassword(email: String, password: CharArray): Long {
         val tuple = accountsDao.findByEmail(email) ?: throw AuthException()
-        if (tuple.password != password) throw AuthException()
+
+        val saltBytes = securityUtils.stringToBytes(tuple.salt)
+        val hashBytes = securityUtils.passwordToHash(password, saltBytes)
+        val hashString = securityUtils.bytesToString(hashBytes)
+        password.fill('*')
+
+        Log.e("aaa tuple",tuple.hash.length.toString())
+        Log.e("aaa tuple",tuple.hash)
+
+        Log.e("aaa hashString",hashString.length.toString())
+        Log.e("aaa hashString",hashString)
+
+        println(hashString)
+        println(tuple.hash)
+
+        if (tuple.hash != hashString) throw AuthException()
+
+        Log.e("aaa 1", "!!!!!!!!!!!!!!!!! ")
         return tuple.id
     }
 

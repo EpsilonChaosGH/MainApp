@@ -9,6 +9,7 @@ import com.example.mainapp.R
 import com.example.mainapp.Repositories
 import com.example.mainapp.databinding.FragmentSignInBinding
 import com.example.mainapp.utils.observeEvent
+import com.example.mainapp.utils.toCharArray
 import com.example.mainapp.utils.viewModelCreator
 
 
@@ -33,7 +34,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     private fun onSignInButtonPressed() {
         viewModel.signIn(
             email = binding.emailEditText.text.toString(),
-            password = binding.passwordEditText.text.toString()
+            password = binding.passwordEditText.text.toCharArray()
         )
     }
 

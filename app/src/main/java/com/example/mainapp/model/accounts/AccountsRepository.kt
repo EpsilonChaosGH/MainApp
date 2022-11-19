@@ -9,7 +9,7 @@ interface AccountsRepository {
 
     suspend fun isSignedIn(): Boolean
 
-    suspend fun signIn(email: String, password: String)
+    suspend fun signIn(email: String, password: CharArray)
 
     suspend fun signUp(signUpData: SignUpData)
 

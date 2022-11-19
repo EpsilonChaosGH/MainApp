@@ -13,6 +13,7 @@ import com.example.mainapp.Repositories
 import com.example.mainapp.databinding.FragmentSignUpBinding
 import com.example.mainapp.model.accounts.entities.SignUpData
 import com.example.mainapp.utils.observeEvent
+import com.example.mainapp.utils.toCharArray
 import com.example.mainapp.utils.viewModelCreator
 import com.google.android.material.textfield.TextInputLayout
 
@@ -43,8 +44,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         val signUpData = SignUpData(
             email = binding.emailEditText.text.toString(),
             username = binding.usernameEditText.text.toString(),
-            password = binding.passwordEditText.text.toString(),
-            repeatPassword = binding.repeatPasswordEditText.text.toString(),
+            password = binding.passwordEditText.text.toCharArray(),
+            repeatPassword = binding.repeatPasswordEditText.text.toCharArray(),
         )
         viewModel.signUp(signUpData)
     }

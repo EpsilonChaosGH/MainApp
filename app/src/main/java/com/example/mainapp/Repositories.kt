@@ -9,6 +9,8 @@ import com.example.mainapp.model.elements.room.RoomElementRepository
 import com.example.mainapp.model.room.AppDatabase
 import com.example.mainapp.model.settings.AppSettings
 import com.example.mainapp.model.settings.SharedPreferencesAppSettings
+import com.example.mainapp.utils.security.DefaultSecurityUtilsImpl
+import com.example.mainapp.utils.security.SecurityUtils
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -17,9 +19,11 @@ object Repositories {
 
     private lateinit var applicationContext: Context
 
+    val securityUtils: SecurityUtils by lazy { DefaultSecurityUtilsImpl() }
+
     private val database: AppDatabase by lazy<AppDatabase> {
         Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database.db")
-            .createFromAsset("initial_database.db")
+            .createFromAsset("init_db.db")
             .build()
     }
 
@@ -30,7 +34,7 @@ object Repositories {
     }
 
     val accountsRepository: AccountsRepository by lazy {
-        AccountsRepositoryImpl(database.getAccountsDao(), appSettings, ioDispatcher)
+        AccountsRepositoryImpl(database.getAccountsDao(), appSettings, ioDispatcher, securityUtils)
     }
 
     val elementsRepository: ElementsRepository by lazy {
